@@ -11,16 +11,16 @@ public class Database {
             Class.forName("com.mysql.cj.jdbc.Driver");
             this.connection = DriverManager.getConnection("jdbc:mysql://" + url + "/" + database, user, password);
             this.statement = this.connection.createStatement();
-        } catch(Exception error) {
-            error.printStackTrace();
+        } catch(Exception exception) {
+            exception.printStackTrace();
         }
     }
 
     public ResultSet executeQuery(String sql) {
         try {
             return this.statement.executeQuery(sql);
-        } catch (Exception error) {
-            error.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
             return null;
         }
     }
@@ -28,8 +28,8 @@ public class Database {
     public void closeConnection() {
         try {
             this.connection.close();
-        } catch (Exception error) {
-            error.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 }
