@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.Properties;
 
 public class Database {
+    private static Database database;
     private Connection connection;
     private Statement statement;
 
@@ -13,7 +14,17 @@ public class Database {
     private String password;
     private String driver;
 
+    public static Database getDatabase() {
+        return database;
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
     public Database() {
+        database = this;
+
         try (InputStream inputStream = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/application.properties")) {
             Properties properties = new Properties();
             properties.load(inputStream);
@@ -43,6 +54,14 @@ public class Database {
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;
+        }
+    }
+
+    public void executeInsert(PreparedStatement preparedStatement) {
+        try {
+            preparedStatement.execute();
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 
