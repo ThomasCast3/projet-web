@@ -9,7 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RestApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RestApiApplication.class, args);
-		Database database = new Database("mysql-finalwebprojet.alwaysdata.net", "263242", "fX7uhxfMGM5hqsX", "finalwebprojet_db");
+
+		Database database = new Database();
+		database.connect();
 		String sncfApi = ApiRequest.getRequest("https://data.sncf.com/api/v2/catalog/datasets/");
 	}
 }
