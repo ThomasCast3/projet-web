@@ -1,4 +1,4 @@
-const app = Vue.createApp({
+const headerApp = Vue.createApp({
 
-    
+
 })
