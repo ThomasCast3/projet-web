@@ -1,7 +1,7 @@
 <template>
   <div class="field">
-    <label class="label">Prenom</label>
     <div class="control">
+      <label class="label">Prenom</label>
       <textarea
         class="textarea"
         placeholder="First Name"
