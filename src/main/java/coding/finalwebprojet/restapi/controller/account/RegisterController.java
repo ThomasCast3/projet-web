@@ -23,6 +23,6 @@ public class RegisterController {
         } catch(Exception exception) {
             exception.printStackTrace();
         }
-        return new ResponseEntity<>("", HttpStatus.OK);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }

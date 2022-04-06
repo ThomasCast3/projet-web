@@ -7,7 +7,6 @@ import java.util.Properties;
 public class Database {
     private static Database database;
     private Connection connection;
-    private Statement statement;
 
     private String url;
     private String username;
@@ -42,7 +41,6 @@ public class Database {
         try {
             Class.forName(this.driver);
             this.connection = DriverManager.getConnection(this.url, this.username, this.password);
-            this.statement = this.connection.createStatement();
         } catch(Exception exception) {
             exception.printStackTrace();
         }
@@ -50,7 +48,7 @@ public class Database {
 
     public ResultSet executeQuery(String sql) {
         try {
-            return this.statement.executeQuery(sql);
+            return this.connection.createStatement().executeQuery(sql);
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;
