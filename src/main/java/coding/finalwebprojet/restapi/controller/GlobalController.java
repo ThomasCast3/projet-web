@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class globalController {
+public class GlobalController {
     @GetMapping(value = "/")
     public String index() {
         return "<h1>Page d'accueil de l'api</h1>";

@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 public class RegisterController {
     @PostMapping("/register")
     public @ResponseBody ResponseEntity<String> post(@RequestParam String email, @RequestParam String password) {
-        System.out.println(email);
         Database database = Database.getDatabase();
         String sql = "INSERT INTO `users` (`email`, `password`) VALUES (?, ?)";
 

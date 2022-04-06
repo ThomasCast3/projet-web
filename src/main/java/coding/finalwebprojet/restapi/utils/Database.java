@@ -57,9 +57,9 @@ public class Database {
         }
     }
 
-    public void executeInsert(PreparedStatement preparedStatement) {
+    public void executeInsert(PreparedStatement sql) {
         try {
-            preparedStatement.execute();
+            sql.execute();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
