@@ -1,23 +1,33 @@
 <template>
-  <navbar id="navbar">
-    <navbar-nav>
-      <routeur-link to="/">Home</routeur-link>
-      <routeur-link to="/contact"></routeur-link>
-    </navbar-nav>
-  </navbar>
+  <div>
+    <Header/>
+    <Accueil/>
+    <Footer/>
+  </div>
 </template>
 
 <script>
-// import Home from "./views/Home.vue";
+  import Header from "/src/assets/components/Header.vue";
+  import Footer from "/src/assets/components/Footer.vue";
+  import Accueil from './assets/components/Accueil.vue';
+
 export default {
   name: "App",
   components: {
-    // Home,
+    Header,
+    Footer,
+    Accueil,
   },
+
   data() {
     return {};
   },
 };
 </script>
 
-<style></style>
+
+<style>
+body{
+  margin: 0;
+}
+</style>
