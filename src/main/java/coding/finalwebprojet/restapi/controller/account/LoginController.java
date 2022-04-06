@@ -1,12 +1,9 @@
-package coding.finalwebprojet.restapi.controller;
+package coding.finalwebprojet.restapi.controller.account;
 
 import coding.finalwebprojet.restapi.utils.Database;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.ResultSet;
 

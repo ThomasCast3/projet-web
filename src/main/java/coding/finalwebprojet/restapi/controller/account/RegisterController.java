@@ -1,4 +1,4 @@
-package coding.finalwebprojet.restapi.controller;
+package coding.finalwebprojet.restapi.controller.account;
 
 import coding.finalwebprojet.restapi.utils.Database;
 import org.springframework.http.HttpStatus;
@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 
 @RestController
 public class RegisterController {
+    @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public @ResponseBody ResponseEntity<String> post(@RequestParam String email, @RequestParam String password) {
         Database database = Database.getDatabase();
