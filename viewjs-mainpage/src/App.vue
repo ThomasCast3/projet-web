@@ -1,15 +1,15 @@
 <template>
   <div>
-    <Header/>
-    <Accueil/>
-    <Footer/>
+    <Header />
+    <Accueil />
+    <Footer />
   </div>
 </template>
 
 <script>
-  import Header from "/src/assets/components/Header.vue";
-  import Footer from "/src/assets/components/Footer.vue";
-  import Accueil from './assets/components/Accueil.vue';
+import Header from "/src/assets/components/Header.vue";
+import Footer from "/src/assets/components/Footer.vue";
+import Accueil from "./assets/components/Accueil.vue";
 
 export default {
   name: "App",
@@ -25,9 +25,10 @@ export default {
 };
 </script>
 
-
 <style>
-body{
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap");
+body {
+  font-family: "Poppins", sans-serif;
   margin: 0;
 }
 </style>

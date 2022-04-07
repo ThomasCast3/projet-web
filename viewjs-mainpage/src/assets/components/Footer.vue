@@ -3,11 +3,9 @@
         <div>
             <p>Nos colabos</p>
             <div class="colabContainers">
-                <p id="txtColab">sncf</p>
-                <img v-bind:src="imageSNFC" alt="logo sncf"/>
+                <img v-bind:src="imageSNCF" alt="logo sncf"/>
             </div>
             <div class="colabContainers">
-                <p id="txtColab">ratp</p>
                  <img v-bind:src="imageRATP" alt="logo ratp"/>
             </div>
         </div>
@@ -19,8 +17,8 @@ export default ({
     name: "Footer",
     data() {
         return{
-            imageSNCF: "/src/assets/logo.sncf.png",
-            imageRATP: "/src/assets/logo-ratp.jpeg"
+            imageSNCF: "logo-sncf.png",
+            imageRATP: "ratp.png"
         } 
     },
 })
