@@ -1,6 +1,6 @@
 window.onload = () => {
     // cherche toutes les users
-    const users = document.querySelectorAll(".la-user");
+    const users = document.querySelectorAll(".fa-user");
 
     // chercher l'input
     const influence = document.querySelector("#influence");
@@ -11,16 +11,16 @@ window.onload = () => {
         user.addEventListener("mouseover", function(){
             resetStars();
             this.style.color = "green";
-            this.classList.add("las");
-            this.classList.remove("lar");
+            this.classList.add("fa-solid");
+            this.classList.remove("fa-regular");
 
             let previousUser = this.previousElementSibling;
 
             while(previousUser){
                 // passe l'user qui précède en vert
                 previousUser.style.color = "green";
-                previousUser.classList.add("las");
-                previousUser.classList.remove("lar");
+                previousUser.classList.add("fa-solid");
+                previousUser.classList.remove("fa-regular");
                 // récupère l'user qui le précède
                 previousUser = previousUser.previousElementSibling;
             }
@@ -45,13 +45,14 @@ window.onload = () => {
         for(user of users){
             if(user.dataset.value > influence){
                 user.style.color = "black";
-                user.classList.add("lar");
-                user.classList.remove("las");
+                user.classList.add("fa-regular");
+                user.classList.remove("fa-solid");
             }else{
                 user.style.color = "green";
-                user.classList.add("las");
-                user.classList.remove("lar");
+                user.classList.add("fa-solid");
+                user.classList.remove("fa-regular");
             }
         }
+
     }
 }
