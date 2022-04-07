@@ -1,11 +1,11 @@
 window.onload = () => {
-    // cherche toutes les étoiles
+    // cherche toutes les users
     const users = document.querySelectorAll(".la-user");
 
     // chercher l'input
     const influence = document.querySelector("#influence");
 
-    // boucle sur les étoiles pour le ajouter
+    // boucle sur les users pour le ajouter
     for(user of users){
         // écoute le survol
         user.addEventListener("mouseover", function(){
@@ -14,15 +14,15 @@ window.onload = () => {
             this.classList.add("las");
             this.classList.remove("lar");
 
-            let previousStar = this.previousElementSibling;
+            let previousUser = this.previousElementSibling;
 
-            while(previousStar){
-                // passe l'étoile qui précède en jaune
-                previousStar.style.color = "green";
-                previousStar.classList.add("las");
-                previousStar.classList.remove("lar");
-                // récupère l'étoile qui la précède
-                previousStar = previousStar.previousElementSibling;
+            while(previousUser){
+                // passe l'user qui précède en vert
+                previousUser.style.color = "green";
+                previousUser.classList.add("las");
+                previousUser.classList.remove("lar");
+                // récupère l'user qui le précède
+                previousUser = previousUser.previousElementSibling;
             }
         });
 
@@ -37,9 +37,10 @@ window.onload = () => {
     }
 
     /**
-     * Reset des étoiles en vérifiant la note dans l'input caché
+     * Reset des users en vérifiant la note dans l'input caché
      * @param {number} influence
      */
+
     function resetStars(influence = 0){
         for(user of users){
             if(user.dataset.value > influence){
