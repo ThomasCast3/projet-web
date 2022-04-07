@@ -1,0 +1,37 @@
+.btncrea {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    text-decoration-color: black;
+    border-radius: 70%;
+}
+
+
+#form {
+    display: grid;
+    width: 165px;
+    height: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.a {
+    display: grid;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    align-items: start;
+    justify-content: space-between;
+}
+
