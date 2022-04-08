@@ -14,7 +14,7 @@
 }
 
 
-#form {
+.form {
     display: grid;
     width: 165px;
     height: auto;
