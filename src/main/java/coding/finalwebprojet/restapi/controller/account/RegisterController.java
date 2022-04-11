@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.PreparedStatement;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class RegisterController {
-    @CrossOrigin(origins = "*")
     @PostMapping("/register")
-    public @ResponseBody ResponseEntity<String> post(@RequestParam String email, @RequestParam String password) {
+    public @ResponseBody ResponseEntity<String> register(@RequestParam String email, @RequestParam String password) {
         Database database = Database.getDatabase();
-        String sql = "INSERT INTO `users` (`email`, `password`) VALUES (?, ?)";
+        String sql = "INSERT INTO users (email, password) VALUES (?, ?)";
 
         try {
             PreparedStatement preparedStatement = database.getConnection().prepareStatement(sql);
             preparedStatement.setString(1, email);
             preparedStatement.setString (2, password);
-            database.executeInsert(preparedStatement);
+            database.executeStatement(preparedStatement);
         } catch(Exception exception) {
             exception.printStackTrace();
         }

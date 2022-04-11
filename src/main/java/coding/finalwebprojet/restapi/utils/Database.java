@@ -55,7 +55,7 @@ public class Database {
         }
     }
 
-    public void executeInsert(PreparedStatement sql) {
+    public void executeStatement(PreparedStatement sql) {
         try {
             sql.execute();
         } catch (Exception exception) {

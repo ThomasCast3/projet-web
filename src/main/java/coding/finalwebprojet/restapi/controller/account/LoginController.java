@@ -8,23 +8,24 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.ResultSet;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class LoginController {
-    @PostMapping("/login")
-    public @ResponseBody ResponseEntity<String> post(@RequestParam String email, @RequestParam String password) {
+    @GetMapping("/login")
+    public @ResponseBody ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
         Database database = Database.getDatabase();
-        String sql =  String.format("SELECT * FROM `users` WHERE `email` = \"%s\"", email);
-        boolean valid = false;
+        String sql =  String.format("SELECT id, password FROM users WHERE email = \"%s\"", email);
+        String id = null;
 
         try {
             ResultSet resultSet = database.executeQuery(sql);
-            String tmpPassword = null;
 
-            while (resultSet.next()) tmpPassword = resultSet.getString("password");
-            if (password.equals(tmpPassword)) valid = true;
-
+            while (resultSet.next()) {
+                if (!password.equals(resultSet.getString("password"))) break;
+                id = resultSet.getString("id");
+            }
         } catch(Exception exception) {
             exception.printStackTrace();
         }
-        return new ResponseEntity<>((valid) ? HttpStatus.OK : HttpStatus.EXPECTATION_FAILED);
+        return new ResponseEntity<>("{\"id\": " + id + "}", HttpStatus.OK);
     }
 }

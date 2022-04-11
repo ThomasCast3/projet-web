@@ -13,8 +13,6 @@ public class RestApiApplication {
 		Database database = new Database();
 		database.connect();
 
-		String sncfApi = ApiRequest.getRequest("https://data.sncf.com/api/v2/catalog/datasets/");
-
 		Runtime.getRuntime().addShutdownHook(new Thread(database::disconnect));
 	}
 }
