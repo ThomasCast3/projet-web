@@ -1,24 +1,31 @@
 <template>
   <div class="field">
     <div class="control">
-      <label class="label">Prenom</label>
+      <label class="label">Prénom</label>
       <textarea
         class="textarea"
-        placeholder="First Name"
+        placeholder="Prénom"
         v-model="form.firstName"
       ></textarea>
       <label class="label">Nom</label>
       <textarea
         class="textarea"
-        placeholder="Last Name"
+        placeholder="Nom"
         v-model="form.lastName"
       ></textarea>
-      <label class="label">Message</label>
+      <label class="label">Mail</label>
       <textarea
         class="textarea"
-        placeholder="Message"
-        v-model="form.message"
+        placeholder="Email"
+        v-model="form.mail"
       ></textarea>
+      <label class="label">Mot de passe</label>
+      <textarea
+        class="textarea"
+        placeholder="Mot de passe"
+        v-model="form.mdp"
+      ></textarea>
+      <button type="submit" class="btn">Envoyer</button>
     </div>
   </div>
 </template>
@@ -30,14 +37,16 @@ export default {
   data() {
     return {
       form: {
-        message: "",
         firstName: "",
         lastName: "",
+        mdp: "",
+        mail: "",
       },
     };
   },
 
-  methods: {},
+  methods: {
+  },
 
   computed: {},
 };
@@ -45,7 +54,6 @@ export default {
 
 <style scoped>
 body {
-  /* column center */
   display: flex;
   flex-direction: column;
 }
@@ -61,12 +69,29 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
+  background-color: whitesmoke;
 }
 .textarea {
   width: 50%;
-  height: 100%;
   margin: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
   resize: none;
   overflow: hidden;
+}
+.btn {
+  background-color: #5c9ad4;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 1em;
+  margin: 10px;
+  cursor: pointer;
+}
+.btn:hover {
+  transform: translateY(-5px);
+}
+.textarea:hover {
+  border-bottom: 2px solid #272f40;
 }
 </style>
