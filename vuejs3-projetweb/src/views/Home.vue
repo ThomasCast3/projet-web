@@ -1,7 +1,6 @@
 <template>
-    <div class="container">
-        <router-link to="/">Home</router-link>
-    </div>
+  <div class="container">
+  </div>
 </template>
 
 <script>
@@ -12,19 +11,17 @@ export default {
     return {};
   },
 
-    methods: {},
+  methods: {},
 
-    computed: {},
+  computed: {},
 };
-
 </script>
 
 <style>
 body {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 .container {
-  /* column center */
   display: flex;
   flex-direction: column;
 }
