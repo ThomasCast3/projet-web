@@ -1,6 +1,6 @@
 const speed = document.getElementById("speed");
 let tmpCoords = {latitude: 0, longitude: 0};
-let id;
+let id = localStorage.getItem("id");
 let first_time = true;
 
 function login()
@@ -14,14 +14,19 @@ function login()
     }
 
     const xmlHttpRequest = new XMLHttpRequest();
-    xmlHttpRequest.open("GET", `http://10.57.29.14:8080/login?email=${email}&password=${password}`, true);
-    xmlHttpRequest.send();
+    xmlHttpRequest.open("POST", `http://10.57.29.14:8080/login`, true);
+    xmlHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlHttpRequest.send(`email=${email}&password=${password}`);
 
     xmlHttpRequest.onload = () => {
-        id = JSON.parse(xmlHttpRequest.responseText)["id"];
+        if (!JSON.parse(xmlHttpRequest.responseText)["id"]) {
+            alert("Identifiants incorrects.");
+            return;
+        }
+        localStorage.setItem("id", JSON.parse(xmlHttpRequest.responseText)["id"]);
+        id = localStorage.getItem("id");
 
-        if (id) alert("Vous êtes connecté.");
-        else alert("Identifiants incorrects.");
+        alert("Vous êtes connecté.");
     }
 }
 
@@ -33,7 +38,7 @@ function register()
     if (!email || !password) return;
 
     const xmlHttpRequest = new XMLHttpRequest();
-    xmlHttpRequest.open("POST", 'http://10.57.29.14:8080/register', false);
+    xmlHttpRequest.open("POST", 'http://10.57.29.14:8080/register', true);
     xmlHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xmlHttpRequest.send(`email=${email}&password=${password}`);
 }
@@ -108,24 +113,76 @@ function deconnection()
 {
     if (id != null) {
         id = null;
+        localStorage.removeItem("id");
         alert("Vous avez été déconnecté.");
     }
     else alert("Vous n'êtes pas connecté.");
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//La Vitesse
+/*
 setInterval(function () {
     navigator.geolocation.getCurrentPosition(velocitySpeed);
-}, 1000);
+}, 2000);
+
 
 function velocitySpeed(position)
 {
+
+
+
     if (first_time) {
-        first_time = true;
+        first_time = false;
         return;
     }
+
+    console.log("vous allez à : " + (getDistanceBetween(tmpCoords["latitude"], tmpCoords["longitude"],
+        position.coords.latitude, position.coords.longitude) / 1.6).toString() + " m/s")
+
     speed.innerHTML = "vous allez à : " + (getDistanceBetween(tmpCoords["latitude"], tmpCoords["longitude"],
     position.coords.latitude, position.coords.longitude) / 1.6).toString() + " m/s";
 
     tmpCoords["latitude"] = position.coords.latitude;
     tmpCoords["longitude"] = position.coords.longitude;
-}
+
+    console.log(tmpCoords["latitude"]);
+    console.log(tmpCoords["longitude"]);
+}*/
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Test carte
+
+/*
+window.onload = function(){
+    // On initialise la carte sur les coordonnées GPS de Paris
+    let macarte = L.map('carte').setView([49.03649851641079, 2.0794835312410838], 13)
+
+    // On charge les tuiles depuis un serveur au choix, ici OpenStreetMap France
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        minZoom: 1,
+        maxZoom: 20
+    }).addTo(macarte)
+
+
+
+    L.Routing.control({
+        // Nous personnalisons le tracé
+        lineOptions: {
+            styles: [{color: 'red', opacity: 1, weight: 7}]
+        },
+
+        // Nous personnalisons la langue et le moyen de transport
+        router: new L.Routing.osrmv1({
+            language: 'fr',
+            profile: 'car', // car, bike, foot
+        }),
+
+        geocoder: L.Control.Geocoder.nominatim()
+    }).addTo(macarte)
+
+
+}*/
+
+
