@@ -7,35 +7,39 @@
         </div>
       </div>
       <div class="dashboard">
-        <div class="dashboard-navbar">
-          <div class="dashboard-navbar-title">
-            <h2>Mon Dashboard</h2>
-          </div>
-          <div class="dashboard-navbar-infos">
-            <div class="dashboard-navbar-infos-item">
-              <div class="dashboard-navbar-infos-item-title">
-                <h3>Informations</h3>
-              </div>
+        <div class="dashboard-left">
+          <div class="dashboard-navbar">
+            <div class="dashboard-navbar-title">
+              <h2>Mon Dashboard</h2>
             </div>
-            <div class="dashboard-navbar-infos-item">
-              <div class="dashboard-navbar-infos-item-title">
-                <h3>Notifications</h3>
+            <div class="dashboard-navbar-infos">
+              <div class="dashboard-navbar-infos-item">
+                <div class="dashboard-navbar-infos-item-title">
+                  <h3>Informations</h3>
+                </div>
               </div>
-            </div>
-            <div class="dashboard-navbar-infos-item">
-              <div class="dashboard-navbar-infos-item-title">
-                <h3>Mes trajets</h3>
+              <div class="dashboard-navbar-infos-item">
+                <div class="dashboard-navbar-infos-item-title">
+                  <h3>Notifications</h3>
+                </div>
               </div>
-            </div>
-            <div class="dashboard-navbar-infos-item">
-              <div class="dashboard-navbar-delete">
-                <h3>Deconnexion</h3>
+              <div class="dashboard-navbar-infos-item">
+                <div class="dashboard-navbar-infos-item-title">
+                  <h3>Mes trajets</h3>
+                </div>
+              </div>
+              <div class="dashboard-navbar-infos-item">
+                <div class="dashboard-navbar-delete">
+                  <h3>Deconnexion</h3>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="informations">
-          <Info />
+        <div class="dashboard-right">
+          <div class="informations">
+            <Info />
+          </div>
         </div>
       </div>
     </div>
@@ -61,6 +65,7 @@ export default {
     };
   },
   methods: {
+
   },
   computed: {},
 };
@@ -73,6 +78,13 @@ export default {
 .dashboard {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+.dashboard-left {
+  width: 20%;
+}
+.dashboard-right {
+    width: 60%;
 }
 .dashboard-header-title {
   display: flex;
@@ -107,6 +119,7 @@ export default {
   padding-left: 1em;
   padding-right: 1em;
   cursor: pointer;
+  color: white;
 }
 .dashboard-navbar-infos-item-title:hover {
   background-color: #5c9ad4;
@@ -115,5 +128,6 @@ export default {
   padding-left: 1em;
   padding-right: 1em;
   cursor: pointer;
+  color: white;
 }
 </style>

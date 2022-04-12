@@ -6,6 +6,8 @@ import Contact from "../views/Contact.vue";
 import Profil from "../views/Profil.vue";
 import Users from "../views/Profil.vue";
 import Notifications from "../components/ProfilNotif.vue";
+import ChangerMotDePasse from "../components/ChangerMdp.vue";
+
 const routes = [
   {
     path: "/",
@@ -41,6 +43,11 @@ const routes = [
     path: "/Profil/Notifications",
     name: "Notifications",
     component: Notifications,
+  },
+  {
+    path: "/ChangerMotDePasse",
+    name: "ChangerMotDePasse",
+    component: ChangerMotDePasse,
   },
 ];
 
