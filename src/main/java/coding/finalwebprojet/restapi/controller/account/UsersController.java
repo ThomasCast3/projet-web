@@ -18,10 +18,15 @@ public class UsersController {
         List<Users> users = new ArrayList<>();
 
         try {
-            ResultSet resultSet = Database.getDatabase().executeQuery("SELECT id, email FROM users");
+            ResultSet resultSet = Database.getDatabase().executeQuery(
+                    "SELECT id, email, role, firstName, lastName FROM users");
 
-            while (resultSet.next()) users.add(new Users(Integer.parseInt(resultSet.getString("id")),
-                    resultSet.getString("email")));
+            while (resultSet.next()) users.add(new Users(
+                    Integer.parseInt(resultSet.getString("id")),
+                    resultSet.getString("email"),
+                    resultSet.getString("role"),
+                    resultSet.getString("firstName"),
+                    resultSet.getString("lastName")));
         } catch(Exception exception) {
             exception.printStackTrace();
         }
