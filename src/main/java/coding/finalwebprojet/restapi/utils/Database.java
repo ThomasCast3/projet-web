@@ -47,6 +47,8 @@ public class Database {
     }
 
     public ResultSet executeQuery(String sql) {
+        System.out.println("SQL Query: " + sql);
+
         try {
             return this.connection.createStatement().executeQuery(sql);
         } catch (Exception exception) {
@@ -56,6 +58,8 @@ public class Database {
     }
 
     public void executeStatement(PreparedStatement sql) {
+        System.out.println("SQL Execute: " + sql.toString());
+
         try {
             sql.execute();
         } catch (Exception exception) {
