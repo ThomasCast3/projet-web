@@ -2,18 +2,19 @@
   <div class="field">
     <div class="control">
       <label class="label">Votre mail</label>
-      <textarea
+      <input
         class="textarea"
         placeholder="Email"
-        v-model="form.email"
-      ></textarea>
+        v-model="this.form.mail"
+      >
       <label class="label">Votre mot de passe</label>
-      <textarea
+      <input
+        type="password"
         class="textarea"
         placeholder="Mot de passe"
-        v-model="form.mdp"
-      ></textarea>
-      <button type="submit" class="btn" >Envoyer</button>
+        v-model="this.form.mdp"
+      >
+      <button @click="connectUser()" type="submit" class="btn">Envoyer</button>
     </div>
   </div>
 </template>
@@ -25,13 +26,26 @@ export default {
   data() {
     return {
       form: {
-        email: "",
+        mail: "",
         mdp: "",
+        isConnected: false,
       },
     };
   },
 
   methods: {
+    connectUser() {
+      const xmlHttpRequest = new XMLHttpRequest();
+      xmlHttpRequest.open("POST", "http://10.57.29.14:8080/login", true);
+      xmlHttpRequest.setRequestHeader(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+      );
+      xmlHttpRequest.send(`email=${this.form.mail}&password=${this.form.mdp}`);
+      xmlHttpRequest.onload = () => {
+        console.log(JSON.parse(xmlHttpRequest.responseText));
+      };
+    },
   },
 
   computed: {},
@@ -53,24 +67,25 @@ body {
   padding: 20px;
 }
 .control {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    background-color: whitesmoke;
-    padding: 10px;
-    border-radius: 15px;
-    box-sizing: border-box;
-    box-shadow: 0px 10px 50px -10px white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  background-color: whitesmoke;
+  padding: 10px;
+  border-radius: 15px;
+  box-sizing: border-box;
+  box-shadow: 0px 10px 50px -10px white;
 }
 .textarea {
   width: 50%;
+padding: 0.5em;
   margin: 1rem;
   resize: none;
   border-radius: 0.5rem;
   overflow: hidden;
   text-align: center;
-  border:gray solid;
+  border: gray solid;
 }
 .btn {
   background-color: #76a0c7;

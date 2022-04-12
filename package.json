@@ -2,6 +2,11 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@fortawesome/vue-fontawesome": "^3.0.0-5"
+    "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "leaflet": "^1.7.1",
+    "vue2-leaflet": "^2.7.1"
+  },
+  "devDependencies": {
+    "@vue-leaflet/vue-leaflet": "^0.6.1"
   }
 }

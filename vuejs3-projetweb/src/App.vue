@@ -45,4 +45,9 @@ body {
   text-decoration: none;
   color: #333;
 }
+#navbar a:hover {
+  color: #fff;
+  background-color: #b2d3f2;
+
+}
 </style>

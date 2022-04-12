@@ -2,30 +2,31 @@
   <div class="field">
     <div class="control">
       <label class="label">Prénom</label>
-      <textarea
+      <input
         class="textarea"
         placeholder="Prénom"
-        v-model="form.firstName"
-      ></textarea>
+        v-model="this.form.firstName"
+      >
       <label class="label">Nom</label>
-      <textarea
+      <input
         class="textarea"
         placeholder="Nom"
-        v-model="form.lastName"
-      ></textarea>
+        v-model="this.form.lastName"
+      >
       <label class="label">Mail</label>
-      <textarea
+      <input
         class="textarea"
         placeholder="Email"
-        v-model="form.mail"
-      ></textarea>
+        v-model="this.form.mail"
+      >
       <label class="label">Mot de passe</label>
-      <textarea
+      <input
+        type="password"
         class="textarea"
         placeholder="Mot de passe"
-        v-model="form.mdp"
-      ></textarea>
-      <button type="submit" class="btn">Envoyer</button>
+        v-model="this.form.mdp"
+      >
+      <button @click="registerUser()" type="submit" class="btn">Envoyer</button>
     </div>
   </div>
 </template>
@@ -46,6 +47,15 @@ export default {
   },
 
   methods: {
+    registerUser() {
+      const xmlHttpRequest = new XMLHttpRequest();
+      xmlHttpRequest.open("POST", "http://10.57.29.14:8080/register", true);
+      xmlHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xmlHttpRequest.send(`email=${this.form.mail}&password=${this.form.mdp}&lastName=${this.form.lastName}&firstName=${this.form.firstName}`);
+    //   xmlHttpRequest.onload = () => {
+    //     this.data = JSON.parse(xmlHttpRequest.responseText);
+    //   };
+    },
   },
 
   computed: {},
@@ -73,6 +83,7 @@ body {
 }
 .textarea {
   width: 50%;
+  padding: 0.5em;
   margin: 1rem;
   border-radius: 0.5rem;
   text-align: center;
