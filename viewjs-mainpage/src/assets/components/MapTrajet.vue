@@ -1,6 +1,6 @@
 <template>
  <div id="TrajetContainer" >
- <CreerTrajet  @creer-Marker="ajoutMarker()"/>
+ <CreerTrajet  @creer-Marker="ajoutMarker($event)"/>
 
   <div id="mapContainer" >
 
@@ -10,10 +10,18 @@
 
 <script>
 import "/public/leaflet.css";
+import { Icon } from 'leaflet';
 import L from "leaflet";
 import "/public/Tween.js";
 import "/public/leaflet.curve.js";
 import CreerTrajet from "/src/assets/components/CreerTrajet.vue";
+
+delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
 
 export default {
   name: "LeafletMap",
@@ -44,11 +52,38 @@ export default {
   },
 
   methods:{
-      ajoutMarker( ){
-      L.marker([100,100]).addTo(this.map);
-      },
+      ajoutMarker(ville){
+         for(let x=0; x<2;x++){
+          var CPvillePos = "";
+          var CPvilleDest ="";
+            fetch(
+        `https://geo.api.gouv.fr/communes?nom=${ville[x]}&fields=code,nom,centre`
+      ).then((response) =>
+        response.json().then((data) => {
+            for(let nomVille of data){
+                let nameV = nomVille.nom;
+                if(ville[0].toUpperCase() == nameV.toUpperCase()){
+                  CPvillePos = nomVille;
+                }
+                 if(ville[1].toUpperCase() == nameV.toUpperCase()){
+                  CPvilleDest = nomVille;
+                }
+             
+              //  console.log(nameV)
+                }
+        
+            var lngPos = CPvillePos.centre.coordinates[0];
+            var latPos =CPvillePos.centre.coordinates[1];
+            L.marker([latPos,lngPos]).addTo(this.map);
+            var lngDest = CPvilleDest.centre.coordinates[0];
+            var latDest =CPvilleDest.centre.coordinates[1];
+            L.marker([latDest,lngDest]).addTo(this.map);
+            })
+            );
+          }
+        },
   },
-};
+}
 </script>
 
 <style scoped>

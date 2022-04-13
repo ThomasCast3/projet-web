@@ -45,7 +45,7 @@
                     />
                 </div>
                 </div>
-                <button @click="creerMarker()" />
+                <button @click=" creerMarker()" />
             </div>
             </div>
         </div> 
@@ -64,6 +64,7 @@ export default {
         imgTrain: "train.png",
         villePos: "", 
         villeDest:"",
+        ville:[],
     };
   },
   methods: {
@@ -90,7 +91,9 @@ export default {
     },
 
     creerMarker() {
-        this.$emit('creer-Marker');
+        this.ville.push(this.villePos);
+        this.ville.push(this.villeDest);
+        this.$emit('creer-Marker',this.ville);
     },
   },
 };
