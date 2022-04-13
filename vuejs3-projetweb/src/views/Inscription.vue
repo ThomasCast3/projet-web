@@ -51,11 +51,32 @@ export default {
       const xmlHttpRequest = new XMLHttpRequest();
       xmlHttpRequest.open("POST", "http://10.57.29.14:8080/register", true);
       xmlHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      if(hasSpecialChar(this.form.firstName) || hasSpecialChar(this.form.lastName) || hasSpecialChar(this.form.mail)){
+        alert("Votre nom ou prénom ou mail ne doit pas contenir de caractères spéciaux");
+        return;
+      }
+      else if(hasIntegers(this.form.firstName) || hasIntegers(this.form.lastName)){
+        alert("Votre nom ou prénom ne doit pas contenir de chiffres");
+        return;
+      }
       xmlHttpRequest.send(`email=${this.form.mail}&password=${this.form.mdp}&lastName=${this.form.lastName}&firstName=${this.form.firstName}`);
-    //   xmlHttpRequest.onload = () => {
-    //     this.data = JSON.parse(xmlHttpRequest.responseText);
-    //   };
     },
+    hasSpecialChar(string){
+      hasSpecialChar = false;
+      var specialChar = /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/;
+      if(specialChar.test(string)){
+        hasSpecialChar = true;
+      }
+    },
+    hasIntegers(string){
+      hasIntegers = false;
+      var integers = /[0-9]/;
+
+      if(integers.test(string)){
+        hasIntegers = true;
+      }
+    }
+
   },
 
   computed: {},
