@@ -3,13 +3,13 @@
     <nav id="navbar">
       <router-link :to="{ name: 'Home' }">Accueil</router-link>
       <router-link :to="{ name: 'Contact' }">Contact</router-link>
-      <router-link :to="{ name: 'Inscription' }" v-show="notConnecte">
+      <router-link :to="{ name: 'Inscription' }" v-show="!isConnecte">
         Inscription
       </router-link>
-      <router-link :to="{ name: 'Connexion' }" v-show="notConnecte">
+      <router-link :to="{ name: 'Connexion' }" v-show="!isConnecte">
         Connexion
       </router-link>
-      <router-link :to="{ name: 'Profil' }">Profil</router-link>
+      <router-link :to="{ name: 'Profil' }" v-show="isConnecte">Profil</router-link>
     </nav>
     <router-view />
   </div>
@@ -21,8 +21,26 @@ export default {
   name: "App",
   data() {
     return {
-      notConnecte: true,
+      isConnecte: "",
     };
+  },
+  methods: {
+    displayPage() {
+      console.log(this.isConnecte);
+      if (
+        localStorage.getItem("isConnected") === null ||
+        localStorage.getItem("isConnected") === "false"
+      ) {
+        this.isConnecte = false;
+        console.log(this.isConnecte);
+      } else {
+        this.isConnecte = true;
+        console.log(this.isConnecte);
+      }
+    },
+    created: function () {
+      this.displayPage();
+    },
   },
 };
 </script>
@@ -48,6 +66,5 @@ body {
 #navbar a:hover {
   color: #fff;
   background-color: #b2d3f2;
-
 }
 </style>

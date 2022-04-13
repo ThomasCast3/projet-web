@@ -2,22 +2,26 @@
   <div class="field">
     <div class="control">
       <label class="label">Votre mail</label>
-      <textarea
+      <input
         class="textarea"
         placeholder="Email"
         v-model="form.email"
-      ></textarea>
+        required
+      >
       <label class="label">Votre numéro de téléphone</label>
-      <textarea
+      <input
         class="textarea"
+        type="tel"
         placeholder="Numéro de téléphone"
         v-model="form.numero"
-      ></textarea>
+        required
+      >
       <label class="label">Votre message</label>
       <textarea
         class="textarea"
         placeholder="Message"
         v-model="form.message"
+        required
       ></textarea>
       <button type="submit" class="btn">Envoyer</button>
     </div>

@@ -6,8 +6,14 @@ import Inscription from "./views/Inscription.vue";
 
 
 const app = createApp(App);
+console.log("appCreated")
 
-app.config.globalProperties.$isConnected = true;
+if (app.config.globalProperties.$isConnected == undefined) {
+app.config.globalProperties.$isConnected = false;
+app.config.globalProperties.$user = [];
+console.log(app.config.globalProperties.$isConnected)
+console.log(app.config.globalProperties.$user)
+}
 
 app.Inscription = ("Inscriptions", Inscription);
 app.use(router);
