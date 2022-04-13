@@ -3,6 +3,10 @@ let tmpCoords = {latitude: 0, longitude: 0};
 let id = localStorage.getItem("id");
 let first_time = true;
 
+
+
+
+
 function login()
 {
     const email = document.getElementById("email_login").value;
@@ -55,8 +59,8 @@ function geolocalisationStation(position)
         alert("Veuillez vous connecter");
         return null;
     }
-    const lat = position.coords.latitude;
-    const long = position.coords.longitude;
+    let lat = position.coords.latitude;
+    let long = position.coords.longitude;
 
     if (lat == null || long == null ) {
         alert("Veuillez activer la géolocalisation");
@@ -87,6 +91,7 @@ function geolocalisationStation(position)
                     minIndex = i;
                 }
             }
+
             console.log(gares[minIndex]["gareName"]);
             console.log(gares[minIndex]["gareLatitude"]);
             console.log(gares[minIndex]["gareLongitude"]);
@@ -96,9 +101,13 @@ function geolocalisationStation(position)
             xmlHttpRequest.open("POST", 'http://10.57.29.14:8080/geolocalisation', true);
             xmlHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
             xmlHttpRequest.send(`id=${id}&latitude=${lat}&longitude=${long}`);
+
+
         }
     }
 }
+
+
 
 function getDistanceBetween(latitude1, longitude1, latitude2, longitude2)
 {
@@ -154,35 +163,88 @@ function velocitySpeed(position)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Test carte
 
-/*
-window.onload = function(){
-    // On initialise la carte sur les coordonnées GPS de Paris
-    let macarte = L.map('carte').setView([49.03649851641079, 2.0794835312410838], 13)
-
-    // On charge les tuiles depuis un serveur au choix, ici OpenStreetMap France
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-        minZoom: 1,
-        maxZoom: 20
-    }).addTo(macarte)
 
 
 
-    L.Routing.control({
-        // Nous personnalisons le tracé
-        lineOptions: {
-            styles: [{color: 'red', opacity: 1, weight: 7}]
-        },
 
-        // Nous personnalisons la langue et le moyen de transport
-        router: new L.Routing.osrmv1({
-            language: 'fr',
-            profile: 'car', // car, bike, foot
-        }),
+  /*  var map = L.map('map').setView([48.856614, 2.3522219], 8);
 
-        geocoder: L.Control.Geocoder.nominatim()
-    }).addTo(macarte)
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+
+    });
+    osm.addTo(map);
+  L.control.locate({
+        position : 'topright' ,
+        drawCircle : false,
+        showCompass : true,
+        strings : {
+            title : "Montre-moi où je suis !"
+
+        }}).addTo(map);*/
+
+var map = L.map('map').setView([48.856614, 2.3522219], 8);
+
+//osm layer
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {});
+osm.addTo(map);
+
+function local() {
 
 
-}*/
+    if (!navigator.geolocation) {
+        console.log("votre navigateur ne supporte pas notre systeme !")
+    } else {
+
+
+            navigator.geolocation.getCurrentPosition(getPosition)
+
+    }
+}
+var marker, circle;
+let test = true;
+
+function getPosition(position) {
+
+    if (test) {
+        console.log("test XDD");
+        test = false;
+
+    var lat = position.coords.latitude
+    var long = position.coords.longitude
+    var accuracy = position.coords.accuracy
+
+
+    if(marker) {
+        map.removeLayer(marker)
+    }
+
+    marker = L.marker([lat, long])
+
+
+    //var featureGroup = L.featureGroup([marker, ]).addTo(map)
+
+  //  map.fitBounds(featureGroup.getBounds())
+
+    console.log("mes coordonnées: Lat: "+ lat +" Long: "+ long)
+
+        circle = L.circle([lat, long], {radius: accuracy})
+         L.featureGroup([ circle]).addTo(map)
+
+         var routing = L.Routing.control({
+            waypoints: [
+                L.latLng(lat , long),
+                L.latLng(48.856614, 2.3522219)
+            ],
+             fitSelectedRoutes: true,
+        }).addTo(map);
+
+    }
+   // routing.spliceWaypoints(0, 100);
+
+
+
+}
+
+
 
 
