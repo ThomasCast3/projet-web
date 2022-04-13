@@ -93,6 +93,7 @@ export default {
     creerMarker() {
         this.ville.push(this.villePos);
         this.ville.push(this.villeDest);
+        console.log(this.ville);
         this.$emit('creer-Marker',this.ville);
     },
   },
