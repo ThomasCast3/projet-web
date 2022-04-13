@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="container">
     <nav id="navbar">
       <router-link :to="{ name: 'Home' }">Accueil</router-link>
@@ -13,12 +14,23 @@
     </nav>
     <router-view />
   </div>
+  <div>
+      <Accueil />
+    <Footer />
+  </div>
+  </div>
 </template>
 
 
 <script>
+import Footer from "/src/assets/components/Footer.vue";
+import Accueil from "./assets/components/Accueil.vue";
 export default {
   name: "App",
+    components: {
+    Footer,
+    Accueil,
+  },
   data() {
     return {
       isConnecte: "",
