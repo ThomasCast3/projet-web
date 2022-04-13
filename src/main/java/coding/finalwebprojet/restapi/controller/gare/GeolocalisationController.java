@@ -26,7 +26,7 @@ public class GeolocalisationController {
 
             database.executeStatement(preparedStatement);
             } catch(Exception exception) {
-            return new ResponseEntity<>(exception.toString(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

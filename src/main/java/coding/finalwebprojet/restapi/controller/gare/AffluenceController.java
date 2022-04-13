@@ -7,14 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -29,10 +21,8 @@ public class AffluenceController {
 
             ResultSet resultSet = database.executeQuery(sqlQueryDate);
 
-            if (!resultSet.next()) return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
             if (resultSet.getLong("MAX(timestamp)") + 300000 >= System.currentTimeMillis())
                 return new ResponseEntity<>(null, HttpStatus.TOO_EARLY);
-
             PreparedStatement preparedStatement = database.getConnection().prepareStatement(sqlInsertAffluence);
             preparedStatement.setInt(1, Integer.parseInt(id));
             preparedStatement.setString(2, gare);

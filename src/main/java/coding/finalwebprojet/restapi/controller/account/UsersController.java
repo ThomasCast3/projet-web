@@ -1,6 +1,6 @@
 package coding.finalwebprojet.restapi.controller.account;
 
-import coding.finalwebprojet.restapi.model.Users;
+import coding.finalwebprojet.restapi.model.User;
 import coding.finalwebprojet.restapi.utils.Database;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,21 +14,21 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class UsersController {
     @GetMapping("/users")
-    public @ResponseBody ResponseEntity<List<Users>> getUsers() {
-        List<Users> users = new ArrayList<>();
+    public @ResponseBody ResponseEntity<List<User>> getUsers() {
+        List<User> users = new ArrayList<>();
 
         try {
             ResultSet resultSet = Database.getDatabase().executeQuery(
                     "SELECT id, email, role, firstName, lastName FROM users");
 
-            while (resultSet.next()) users.add(new Users(
+            while (resultSet.next()) users.add(new User(
                     Integer.parseInt(resultSet.getString("id")),
                     resultSet.getString("email"),
                     resultSet.getString("role"),
                     resultSet.getString("firstName"),
                     resultSet.getString("lastName")));
         } catch(Exception exception) {
-            exception.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

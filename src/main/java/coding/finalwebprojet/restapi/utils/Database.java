@@ -68,6 +68,7 @@ public class Database {
     }
 
     public void disconnect() {
+        if (this.connection == null) return;
         try {
             this.connection.close();
         } catch (Exception exception) {
