@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div v-show="isConnected" class="Connecte">
+    <div class="Connecte">
       <div class="dashboard-header">
         <div class="dashboard-header-title">
           <h1>Dashboard</h1>
@@ -29,8 +29,8 @@
                 </div>
               </div>
               <div class="dashboard-navbar-infos-item">
-                <div class="dashboard-navbar-delete">
-                  <h3>Deconnexion</h3>
+                <div @click="deconnect()" class="dashboard-navbar-delete">
+                  <h3 >Deconnexion</h3>
                 </div>
               </div>
             </div>
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <div v-show="!isConnected" class="pasConnecte">
+    <div class="pasConnecte">
       <strong>PAS CONNECTE</strong>
     </div>
   </div>
@@ -54,18 +54,23 @@
 
 <script>
 import Info from "/src/components/ProfilInfo.vue";
+
 export default {
   name: "profilePage",
   components: {
     Info,
   },
   data() {
-    return {
-      isConnected: true,
-    };
+    return {};
   },
   methods: {
-
+    deconnect() {
+      localStorage.setItem("isConnected", false);
+      localStorage.removeItem("user");
+      this.$isConnected = false;
+      this.$user = "";
+      this.$router.push("/");
+    },
   },
   computed: {},
 };
@@ -84,7 +89,7 @@ export default {
   width: 20%;
 }
 .dashboard-right {
-    width: 60%;
+  width: 60%;
 }
 .dashboard-header-title {
   display: flex;

@@ -1,19 +1,17 @@
 <template>
   <div class="Informations">
     <h2>Vos informations</h2>
-    <!-- {{ getUserInfo() }} -->
-    {{ getConsole() }}
 
     <div class="Informations-item">
       <input
-        type="textarea"
+        type="input"
         class="Informations-prenom"
         placeholder="Prénom"
-        v-model="form.firstaName"
+        v-model="form.firstName"
         required
       />
       <input
-        type="textarea"
+        type="input"
         class="Informations-nom"
         placeholder="Nom"
         v-model="form.lastName"
@@ -29,21 +27,25 @@
       <router-link :to="{ name: 'ChangerMotDePasse' }"
         >ChangerMotDePasse</router-link
       >
-      <button type="submit" class="Informations-btn">Sauvegarder</button>
+      <button @click="userUpdate()" type="submit" class="Informations-btn">Sauvegarder</button>
+      <button @click="deleteUser()" type="submit" class="Informations-btn">Supprimer mon compte</button>
       <!-- {{ getUserName() }} -->
     </div>
   </div>
 </template>
 
 <script>
+
+
 export default {
+  
   name: "infoPage",
   components: {},
   data() {
     return {
       form: {
         id: "",
-        firstName: "",
+        firstName: "Louis",
         lastName: "",
         mdp: "",
         mail: "",
@@ -63,32 +65,58 @@ export default {
     //     }
     //   };
     // },
+
     getUserInfo() {
-
-        const xmlHttpRequest = new XMLHttpRequest();
-        xmlHttpRequest.open("POST", "http://10.57.29.14:8080/login", true);
-        xmlHttpRequest.setRequestHeader(
-          "Content-Type",
-          "application/x-www-form-urlencoded"
-        );
-        xmlHttpRequest.send(
-          `email=${this.form.mail}&password=${this.form.mdp}`
-        );
-        xmlHttpRequest.onload = () => {
-          if (xmlHttpRequest.status === 200) {
-            this.data = JSON.parse(xmlHttpRequest.responseText);
-            this.form.id = this.data["id"];
-            this.form.firstName = this.data["firstName"];
-            this.form.lastName = this.data["lastName"];
-            this.form.email = this.data["email"];
-          }
-        };
+      if (localStorage.getItem("isConnected") === null || localStorage.getItem("isConnected") === "false") {
+        window.location = "/Connexion";
+      }
+      var userData = JSON.parse(localStorage.getItem("user"));
+      console.log(userData);
+      this.form.id = userData["id"];
+      this.form.firstName = userData["firstName"];
+      this.form.lastName = userData["lastName"];
+      this.form.mail = userData["email"];
+      return
     },
 
-    getConsole() {
-      console.log(this.form.id);
-      console.log(this.$isConnected)
+
+
+    userUpdate(){
+      const xmlHttpRequest = new XMLHttpRequest();
+      xmlHttpRequest.open("PUT", "http://10.57.29.14:8080/update-account", true);
+      xmlHttpRequest.setRequestHeader(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+      );
+      xmlHttpRequest.send(
+        `id=${this.form.id}&firstName=${this.form.firstName}&lastName=${this.form.lastName}&email=${this.form.mail}`
+      );
+      var userData = JSON.parse(localStorage.getItem("user"));
+      userData["firstName"] = this.form.firstName;
+      userData["lastName"] = this.form.lastName;
+      userData["email"] = this.form.mail;
+      localStorage.setItem("user", JSON.stringify(userData));
+      window.location = "/Profil";
     },
+
+    deleteUser(){
+      const xmlHttpRequest = new XMLHttpRequest();
+      xmlHttpRequest.open("DELETE", "http://10.57.29.14:8080/delete-account", true);
+      xmlHttpRequest.setRequestHeader(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+      );
+      xmlHttpRequest.send(
+        `id=${this.form.id}`
+      );
+      localStorage.setItem("isConnected", false);
+      localStorage.removeItem("user");
+      window.location = "/Inscription";
+    }
+
+  },
+  created: function() {
+    this.getUserInfo();
   },
   computed: {},
 };

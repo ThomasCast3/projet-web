@@ -2,18 +2,14 @@
   <div class="field">
     <div class="control">
       <label class="label">Votre mail</label>
-      <input
-        class="textarea"
-        placeholder="Email"
-        v-model="this.form.mail"
-      >
+      <input class="textarea" placeholder="Email" v-model="this.form.mail" />
       <label class="label">Votre mot de passe</label>
       <input
         type="password"
         class="textarea"
         placeholder="Mot de passe"
         v-model="this.form.mdp"
-      >
+      />
       <button @click="connectUser()" type="submit" class="btn">Envoyer</button>
     </div>
   </div>
@@ -28,7 +24,6 @@ export default {
       form: {
         mail: "",
         mdp: "",
-        isConnected: false,
       },
     };
   },
@@ -43,7 +38,11 @@ export default {
       );
       xmlHttpRequest.send(`email=${this.form.mail}&password=${this.form.mdp}`);
       xmlHttpRequest.onload = () => {
-        console.log(JSON.parse(xmlHttpRequest.responseText));
+        if (xmlHttpRequest.status !== 200) return;
+
+        localStorage.setItem("isConnected", true);
+        localStorage.setItem("user", xmlHttpRequest.responseText);
+        window.location = "./"
       };
     },
   },
@@ -54,7 +53,6 @@ export default {
 
 <style scoped>
 body {
-  /* column center */
   display: flex;
   flex-direction: column;
 }
@@ -79,7 +77,7 @@ body {
 }
 .textarea {
   width: 50%;
-padding: 0.5em;
+  padding: 0.5em;
   margin: 1rem;
   resize: none;
   border-radius: 0.5rem;
