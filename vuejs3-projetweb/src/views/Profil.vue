@@ -29,6 +29,10 @@
                 </div>
               </div>
               <div class="dashboard-navbar-infos-item">
+                <div v-show="this.$isAdmin" class="dashboard-navbar-infos-item-title">
+                  <h3>Les utilisateurs</h3>
+                </div>
+              <div class="dashboard-navbar-infos-item">
                 <div @click="deconnect()" class="dashboard-navbar-delete">
                   <h3 >Deconnexion</h3>
                 </div>
@@ -67,15 +71,22 @@ export default {
     deconnect() {
       localStorage.setItem("isConnected", false);
       localStorage.removeItem("user");
+      localStorage.removeItem("isAdmin");
       this.$isConnected = false;
       this.$user = "";
       this.$router.push("/");
+    },
+    isAdmmin() {
+      if (localStorage.getItem("isAdmin") === "true") {
+        this.$isAdmin = true;
+      } else {
+        return false;
+      }
     },
   },
   computed: {},
 };
 </script>
-
 
 
 

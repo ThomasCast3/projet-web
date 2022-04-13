@@ -11,6 +11,7 @@ console.log("appCreated")
 if (app.config.globalProperties.$isConnected == undefined) {
 app.config.globalProperties.$isConnected = false;
 app.config.globalProperties.$user = [];
+app.config.globalProperties.$isAdmin = false;
 console.log(app.config.globalProperties.$isConnected)
 console.log(app.config.globalProperties.$user)
 }
