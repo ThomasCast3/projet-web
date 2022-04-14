@@ -14,7 +14,7 @@
 
 <script>
 export default ({
-    name: "Footer",
+    name: "FooterPage",
     data() {
         return{
             imageSNCF: "logo-sncf.png",

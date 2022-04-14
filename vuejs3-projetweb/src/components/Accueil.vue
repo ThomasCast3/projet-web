@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import MapTrajet from "/src/assets/components/MapTrajet.vue";
+import MapTrajet from "/src/components/MapTrajet.vue";
 
 export default {
-  name: "Accueil",
+  name: "AccueilPage",
   components: {
     MapTrajet,
   },

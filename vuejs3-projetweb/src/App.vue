@@ -23,8 +23,8 @@
 
 
 <script>
-import Footer from "/src/assets/components/Footer.vue";
-import Accueil from "./assets/components/Accueil.vue";
+import Footer from "/src/components/Footer.vue";
+import Accueil from "./components/Accueil.vue";
 export default {
   name: "App",
     components: {
