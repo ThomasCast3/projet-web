@@ -29,26 +29,27 @@
                 </div>
               </div>
               <div class="dashboard-navbar-infos-item">
-                <div v-show="this.$isAdmin" class="dashboard-navbar-infos-item-title">
+                <div
+                  v-show="this.$isAdmin"
+                  class="dashboard-navbar-infos-item-title"
+                >
                   <h3>Les utilisateurs</h3>
                 </div>
-              <div class="dashboard-navbar-infos-item">
-                <div @click="deconnect()" class="dashboard-navbar-delete">
-                  <h3 >Deconnexion</h3>
+                <div class="dashboard-navbar-infos-item">
+                  <div @click="deconnect()" class="dashboard-navbar-delete">
+                    <h3>Deconnexion</h3>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="dashboard-right">
-          <div class="informations">
-            <Info />
+      </div>
+          <div class="dashboard-right">
+            <div class="informations">
+              <Info />
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="pasConnecte">
-      <strong>PAS CONNECTE</strong>
     </div>
   </div>
 </template>
