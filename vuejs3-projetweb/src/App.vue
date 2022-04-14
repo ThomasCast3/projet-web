@@ -12,7 +12,7 @@
       <router-link @click="isAffiche = false" :to="{ name: 'Connexion' }" v-show="!isConnecte">
         Connexion
       </router-link>
-      <router-link @click="isAffiche = false" :to="{ name: 'Profil' }" v-show="isConnecte"
+      <router-link @click="isAffiche = false" :to="{ name: 'Profil' }" v-show="!isConnecte"
         >Profil</router-link
       >
     </nav>
