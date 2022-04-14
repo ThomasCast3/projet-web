@@ -2,22 +2,26 @@
   <div class="field">
     <div class="control">
       <label class="label">Prénom</label>
-      <input
+      <input @keyup="hasSpecialChars" @keydown="hasIntegers"
         class="textarea"
         placeholder="Prénom"
         v-model="this.form.firstName"
+        required
       >
       <label class="label">Nom</label>
       <input
-        class="textarea"
+        class="textarea" @keyup="hasSpecialChars" @keydown="hasIntegers"
         placeholder="Nom"
         v-model="this.form.lastName"
+        required
       >
       <label class="label">Mail</label>
-      <input
+      <input @keyup="hasSpecialChars"
         class="textarea"
         placeholder="Email"
         v-model="this.form.mail"
+        required
+
       >
       <label class="label">Mot de passe</label>
       <input
@@ -25,6 +29,7 @@
         class="textarea"
         placeholder="Mot de passe"
         v-model="this.form.mdp"
+        required
       >
       <button @click="registerUser()" type="submit" class="btn">Envoyer</button>
     </div>
@@ -43,6 +48,8 @@ export default {
         mdp: "",
         mail: "",
       },
+      hasSpecialChars: false,
+      hasNumbers: false,
     };
   },
 
@@ -51,11 +58,34 @@ export default {
       const xmlHttpRequest = new XMLHttpRequest();
       xmlHttpRequest.open("POST", "http://10.57.29.14:8080/register", true);
       xmlHttpRequest.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      if( this.hasSpecialChars){
+        alert("Votre nom ou prénom ou mail ne doit pas contenir de caractères spéciaux");
+        return;
+      }
+      else if(this.hasNumbers){
+        alert("Votre nom ou prénom ne doit pas contenir de chiffres");
+        return;
+      }
       xmlHttpRequest.send(`email=${this.form.mail}&password=${this.form.mdp}&lastName=${this.form.lastName}&firstName=${this.form.firstName}`);
-    //   xmlHttpRequest.onload = () => {
-    //     this.data = JSON.parse(xmlHttpRequest.responseText);
-    //   };
     },
+    hasSpecialChar(){
+      var specialChar =/[~`!#$%^&*+=\-[\]\\';,/{}|\\":<>?]/;
+      if(specialChar.test(this.form.lastName) || specialChar.test(this.form.firstName) || specialChar.test(this.form.mail)){
+        this.hasSpecialChar = true;
+        console.log("this.hasSpecialChar");
+        return this.hasSpecialChars;
+
+      }
+    },
+    hasIntegers(){
+      var integers =/[0-9]/;
+      if(integers.test(this.form.lastName) || integers.test(this.form.firstName)){
+        this.hasNumbers = true;
+        console.log("this.hasNumbers");
+        return this.hasNumbers;
+      }
+    }
+
   },
 
   computed: {},

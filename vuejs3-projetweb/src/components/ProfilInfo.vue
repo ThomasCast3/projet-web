@@ -27,18 +27,19 @@
       <router-link :to="{ name: 'ChangerMotDePasse' }"
         >ChangerMotDePasse</router-link
       >
-      <button @click="userUpdate()" type="submit" class="Informations-btn">Sauvegarder</button>
-      <button @click="deleteUser()" type="submit" class="Informations-btn">Supprimer mon compte</button>
+      <button @click="userUpdate()" type="submit" class="Informations-btn">
+        Sauvegarder
+      </button>
+      <button @click="deleteUser()" type="submit" class="Informations-btn">
+        Supprimer mon compte
+      </button>
       <!-- {{ getUserName() }} -->
     </div>
   </div>
 </template>
 
 <script>
-
-
 export default {
-  
   name: "infoPage",
   components: {},
   data() {
@@ -67,7 +68,10 @@ export default {
     // },
 
     getUserInfo() {
-      if (localStorage.getItem("isConnected") === null || localStorage.getItem("isConnected") === "false") {
+      if (
+        localStorage.getItem("isConnected") === null ||
+        localStorage.getItem("isConnected") === "false"
+      ) {
         window.location = "/Connexion";
       }
       var userData = JSON.parse(localStorage.getItem("user"));
@@ -76,14 +80,16 @@ export default {
       this.form.firstName = userData["firstName"];
       this.form.lastName = userData["lastName"];
       this.form.mail = userData["email"];
-      return
+      return;
     },
 
-
-
-    userUpdate(){
+    userUpdate() {
       const xmlHttpRequest = new XMLHttpRequest();
-      xmlHttpRequest.open("PUT", "http://10.57.29.14:8080/update-account", true);
+      xmlHttpRequest.open(
+        "PUT",
+        "http://10.57.29.14:8080/update-account",
+        true
+      );
       xmlHttpRequest.setRequestHeader(
         "Content-Type",
         "application/x-www-form-urlencoded"
@@ -99,23 +105,35 @@ export default {
       window.location = "/Profil";
     },
 
-    deleteUser(){
+    deleteUser() {
       const xmlHttpRequest = new XMLHttpRequest();
-      xmlHttpRequest.open("DELETE", "http://10.57.29.14:8080/delete-account", true);
+      xmlHttpRequest.open(
+        "DELETE",
+        "http://10.57.29.14:8080/delete-account",
+        true
+      );
       xmlHttpRequest.setRequestHeader(
         "Content-Type",
         "application/x-www-form-urlencoded"
       );
-      xmlHttpRequest.send(
-        `id=${this.form.id}`
-      );
+      xmlHttpRequest.send(`id=${this.form.id}`);
       localStorage.setItem("isConnected", false);
       localStorage.removeItem("user");
       window.location = "/Inscription";
-    }
+    },
 
+    
+    getUser() {
+      const xmlHttpRequest = new XMLHttpRequest();
+      xmlHttpRequest.open("GET", "http://10.57.29.14:8080/users", true);
+      xmlHttpRequest.setRequestHeader(
+        "Content-Type",
+        "application/x-www-form-urlencoded"
+      );
+
+    },
   },
-  created: function() {
+  created: function () {
     this.getUserInfo();
   },
   computed: {},

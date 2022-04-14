@@ -44,6 +44,10 @@ export default {
         localStorage.setItem("user", xmlHttpRequest.responseText);
         window.location = "./"
       };
+      if(xmlHttpRequest.responseText("role") === "admin"){
+        localStorage.setItem("isAdmin", true);
+        console.log(this.$isAdmin);
+      }
     },
   },
 
