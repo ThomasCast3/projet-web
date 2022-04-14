@@ -163,7 +163,7 @@ function velocitySpeed(position)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Test carte
 
-
+// affichage de la carte
 const map = L.map('map').setView([48.856614, 2.3522219], 8);
 
 //osm layer
@@ -172,60 +172,87 @@ osm.addTo(map);
 
 function local() {
 
-
+// si l'utilisateur n'active pas ou ne peut pas activer sa position alors il affiche un message d'erreur
     if (!navigator.geolocation) {
-        console.log("votre navigateur ne supporte pas notre systeme !")
+       alert("vous n'avez pas ou ne pouvez pas activé la géolocalisation");
     } else {
-
-
+//on repete le fait de recupéré la geocalisation toutes les 5 secondes
+setInterval(function () {
             navigator.geolocation.getCurrentPosition(getPosition)
+console.log("affiche");
+    }
+    , 5000);
 
     }
 }
 
-let marker, circle;
-let test = true;
 
+
+
+// fonction qui recupère la position de l'utilisateur et affiche l'itinéraire de la gare la plus proche
 function getPosition(position) {
+    //on recupere la latitude et la longitude de l'utilisateur
+    const lat = position.coords.latitude;
+    const long = position.coords.longitude;
+
+// on demance a l'api de nous doné les informations des gares
+    let xmlHttpRequest = new XMLHttpRequest();
+    xmlHttpRequest.open("GET", "https://ressources.data.sncf.com/api/records/1.0/search/?dataset=liste-des-gares&q=&rows=20&refine.departemen=VAL-D%27OISE");
+    xmlHttpRequest.send();
+    xmlHttpRequest.onload = () => {
+        const jsonGares = JSON.parse(xmlHttpRequest.responseText);
+        const gares = [];
+
+//on récupere la latitude et la longitude de chaque gare
+        for (let i = 0; i < jsonGares["parameters"]["rows"]; i++) {
+            const gareLatitude = jsonGares["records"][i]["fields"]["geo_point_2d"][0];
+            const gareLongitude = jsonGares["records"][i]["fields"]["geo_point_2d"][1];
+            gares[i] = {"gareLatitude": gareLatitude, "gareLongitude": gareLongitude}
+        }
+
+        //on compare la distance entre la gare la plus proche et l'utilisateur
+            let minIndex;
+            let minDistance = Number.MAX_SAFE_INTEGER;
+
+        for (let i = 0; i < gares.length; i++) {
+            const tmpDistance = getDistanceBetween(lat, long, gares[i]["gareLatitude"], gares[i]["gareLongitude"]);
+
+            if (tmpDistance < minDistance) {
+                minDistance = tmpDistance;
+                minIndex = i;
+            }
+        }
+            var garlat = gares[minIndex]["gareLatitude"];
+            var garlong = gares[minIndex]["gareLongitude"];
 
 
-    if (test) {
-        console.log("test XDD");
-        test = false;
+          //  var featureGroup = L.featureGroup([marker, ]).addTo(map)
 
-        const lat = position.coords.latitude;
-        const long = position.coords.longitude;
-        const accuracy = position.coords.accuracy;
+            //  map.fitBounds(featureGroup.getBounds())
+
+            console.log("mes coordonnées: Lat: " + lat + " Long: " + long);
+
+            //affichage de l'itinéraire en tre notre position et la gare la plus proche
+            var routing = L.Routing.control({
+                waypoints: [
+                    L.latLng(lat, long),
+                    L.latLng(garlat, garlong)
+                ],
+
+                fitSelectedRoutes: true,
+            }).addTo(map);
+
+            //delais d'attente avant de supprimer l'itinéraire
+        console.log("enleve")
+            setTimeout(fonctionAExecuter, 5000); //On attend 5 secondes avant d'exécuter la fonction
+
+            function fonctionAExecuter() {
+                routing.spliceWaypoints(0, 10)
+            }
 
 
-        if(marker) {
-        map.removeLayer(marker)
     }
-
-    marker = L.marker([lat, long])
-
-
-    //var featureGroup = L.featureGroup([marker, ]).addTo(map)
-
-  //  map.fitBounds(featureGroup.getBounds())
-
-    console.log("mes coordonnées: Lat: "+ lat +" Long: "+ long)
-
-        circle = L.circle([lat, long], {radius: accuracy})
-         L.featureGroup([ circle]).addTo(map)
-
-        const routing = L.Routing.control({
-            waypoints: [
-                L.latLng(lat, long),
-                L.latLng(48.856614, 2.3522219)
-            ],
-            fitSelectedRoutes: true,
-        }).addTo(map);
-    }
-
-   // routing.spliceWaypoints(0, 100);
 }
-
 
 
 
