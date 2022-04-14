@@ -2,7 +2,7 @@ import { createApp} from "vue";
 import router from "./router";
 import App from "./App.vue";
 import Inscription from "./views/Inscription.vue";
-
+import 'leaflet/dist/leaflet.css';
 
 
 const app = createApp(App);

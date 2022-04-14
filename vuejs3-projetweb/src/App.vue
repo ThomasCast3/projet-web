@@ -1,4 +1,5 @@
 <template>
+<div>
   <div class="container">
     <nav id="navbar">
       <router-link :to="{ name: 'Home' }">Accueil</router-link>
@@ -13,12 +14,19 @@
     </nav>
     <router-view />
   </div>
+   <AffichMap/>
+  </div>
 </template>
 
 
 <script>
+import affichMap from "/src/affichMap"
+
 export default {
   name: "App",
+components:{
+affichMap,
+},
   data() {
     return {
       isConnecte: "",
