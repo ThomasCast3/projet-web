@@ -1,27 +1,52 @@
 <template>
   <div class="container">
+    <div class="header">
+      <Header />
+    </div>
     <nav id="navbar">
-      <router-link :to="{ name: 'Home' }">Accueil</router-link>
-      <router-link :to="{ name: 'Contact' }">Contact</router-link>
-      <router-link :to="{ name: 'Inscription' }" v-show="!isConnecte">
+      <router-link @click="isAffiche = true" :to="{ name: 'Home' }">Accueil</router-link>
+      <router-link @click="isAffiche = false" :to="{ name: 'Contact' }">Contact</router-link>
+      <router-link @click="isAffiche =false" :to="{ name: 'Inscription' }" v-show="!isConnecte">
         Inscription
       </router-link>
-      <router-link :to="{ name: 'Connexion' }" v-show="!isConnecte">
+      <router-link @click="isAffiche = false" :to="{ name: 'Connexion' }" v-show="!isConnecte">
         Connexion
       </router-link>
-      <router-link :to="{ name: 'Profil' }" v-show="isConnecte">Profil</router-link>
+      <router-link @click="isAffiche = false" :to="{ name: 'Profil' }" v-show="isConnecte"
+        >Profil</router-link
+      >
     </nav>
     <router-view />
+      <div v-show="isAffiche" class="accueil">
+        <Accueil />
+      </div>
+      <div class="foorter">
+        <Footer />
+      </div>
   </div>
 </template>
 
 
 <script>
+import Accueil from "/src/components/Accueil.vue";
+import Footer from "/src/components/Footer.vue";
+import Header from "/src/components/Header.vue";
 export default {
   name: "App",
+
+  components: {
+    Accueil,
+    Footer,
+    Header,
+  },
+
   data() {
     return {
       isConnecte: "",
+      villePos: "",
+      villeDest: "",
+      ville: [],
+      isAffiche: true,
     };
   },
   methods: {
@@ -38,6 +63,7 @@ export default {
         console.log(this.isConnecte);
       }
     },
+
     created: function () {
       this.displayPage();
     },
@@ -66,5 +92,8 @@ body {
 #navbar a:hover {
   color: #fff;
   background-color: #b2d3f2;
+}
+.accueil{
+  margin: 2em;
 }
 </style>
