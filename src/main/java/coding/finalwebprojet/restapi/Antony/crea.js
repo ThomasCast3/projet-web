@@ -164,28 +164,10 @@ function velocitySpeed(position)
 //Test carte
 
 
-
-
-
-  /*  var map = L.map('map').setView([48.856614, 2.3522219], 8);
-
-    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-
-    });
-    osm.addTo(map);
-  L.control.locate({
-        position : 'topright' ,
-        drawCircle : false,
-        showCompass : true,
-        strings : {
-            title : "Montre-moi où je suis !"
-
-        }}).addTo(map);*/
-
-var map = L.map('map').setView([48.856614, 2.3522219], 8);
+const map = L.map('map').setView([48.856614, 2.3522219], 8);
 
 //osm layer
-var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {});
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {});
 osm.addTo(map);
 
 function local() {
@@ -200,21 +182,23 @@ function local() {
 
     }
 }
-var marker, circle;
+
+let marker, circle;
 let test = true;
 
 function getPosition(position) {
+
 
     if (test) {
         console.log("test XDD");
         test = false;
 
-    var lat = position.coords.latitude
-    var long = position.coords.longitude
-    var accuracy = position.coords.accuracy
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+        const accuracy = position.coords.accuracy;
 
 
-    if(marker) {
+        if(marker) {
         map.removeLayer(marker)
     }
 
@@ -230,19 +214,16 @@ function getPosition(position) {
         circle = L.circle([lat, long], {radius: accuracy})
          L.featureGroup([ circle]).addTo(map)
 
-         var routing = L.Routing.control({
+        const routing = L.Routing.control({
             waypoints: [
-                L.latLng(lat , long),
+                L.latLng(lat, long),
                 L.latLng(48.856614, 2.3522219)
             ],
-             fitSelectedRoutes: true,
+            fitSelectedRoutes: true,
         }).addTo(map);
-
     }
+
    // routing.spliceWaypoints(0, 100);
-
-
-
 }
 
 
