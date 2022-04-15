@@ -1,4 +1,4 @@
-# viewjs-mainpage
+# vuejs3-projetweb
 
 ## Project setup
 ```
